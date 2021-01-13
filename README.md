@@ -2,25 +2,53 @@ mdftracks
 ================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Build Status](https://travis-ci.org/burgerga/mdftracks.svg?branch=master)](https://travis-ci.org/burgerga/mdftracks) [![codecov](https://codecov.io/gh/burgerga/mdftracks/branch/master/graph/badge.svg)](https://codecov.io/gh/burgerga/mdftracks) [![License: GPL-3](https://img.shields.io/badge/license-GPL--3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
+<!-- badges: start -->
 
-Reads and writes **[MTrackJ](https://imagescience.org/meijering/software/mtrackj/) Data Files** ([`.mdf`](https://imagescience.org/meijering/software/mtrackj/format/)). Supports clusters, 2D data, and channel information. If desired, generates unique track identifiers based on cluster and id data from the `.mdf` file.
+[![R-CMD-check](https://github.com/burgerga/mdftracks/workflows/R-CMD-check/badge.svg)](https://github.com/burgerga/mdftracks/actions)
+[![codecov](https://codecov.io/gh/burgerga/mdftracks/branch/master/graph/badge.svg)](https://codecov.io/gh/burgerga/mdftracks)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/mdftracks)](https://cran.r-project.org/package=mdftracks)
+<!-- badges: end -->
 
-Usage
------
+## Overview
+
+mdftracks reads and writes
+**[MTrackJ](https://imagescience.org/meijering/software/mtrackj/) Data
+Files**
+([`.mdf`](https://imagescience.org/meijering/software/mtrackj/format/)).
+Supports clusters, 2D data, and channel information. If desired,
+generates unique track identifiers based on cluster and id data from the
+`.mdf` file.
+
+## Installation
+
+``` r
+install.packages('mdftracks')
+```
+
+### Development version
+
+To get a bug fix or to use a feature from the development version, you
+can install the development version from GitHub.
+
+``` r
+# install.packages("remotes")
+remotes::install_github("burgerga/mdftracks")
+```
+
+## Usage
 
 First load the package with
 
 ``` r
 library(mdftracks)
+#> Warning: package 'mdftracks' was built under R version 4.1.0
 ```
 
-**Reading 3D data: **
+### Reading 3D data
 
 ``` r
 mdf.file <- system.file("extdata", "example.mdf", package = 'mdftracks')
 data <- read.mdf(mdf.file)
-#> MTrackJ 1.5.1 Data File
 head(data, 10)
 #>        cluster id time   x   y z
 #> 1.1.1        1  1    1 782  43 1
@@ -35,11 +63,10 @@ head(data, 10)
 #> 1.1.10       1  1   10 823 125 1
 ```
 
-**Dropping the z-coordinate for 2D data: **
+### Dropping the z-coordinate for 2D data
 
 ``` r
 data <- read.mdf(mdf.file, drop.Z = T)
-#> MTrackJ 1.5.1 Data File
 head(data, 10)
 #>        cluster id time   x   y
 #> 1.1.1        1  1    1 782  43
@@ -54,10 +81,10 @@ head(data, 10)
 #> 1.1.10       1  1   10 823 125
 ```
 
-**Writing data in `(id, t, x, y, z)` format (e.g., from [MotilityLab](https://github.com/jtextor/MotilityLab)): **
+### Writing data in `(id, t, x, y, z)` format (e.g., from [celltrackR](https://github.com/ingewortel/celltrackR))
 
 ``` r
-library('MotilityLab')
+library('celltrackR')
 tracks.df <- as.data.frame(TCells)
 ```
 
@@ -103,7 +130,7 @@ write.mdf(head(tracks.df, 10))
     #> Point 10 131.7630004883 117.6630020142 6.25 249.8899993896 1
     #> End of MTrackJ Data File
 
-**Writing data with cluster, channel, and point information: **
+### Writing data with cluster, channel, and point information
 
 ``` r
 print(mdftracks.example.data)
@@ -152,11 +179,4 @@ write.mdf(mdftracks.example.data, cluster.column = 'cl', id.column = 'id',
     #> Point 2 84.7 227.7 21.1 3 2
     #> End of MTrackJ Data File
 
-For more information, consult the package documentation.
-
-Installation
-------------
-
-``` r
-install.packages('mdftracks')
-```
+For more information, please consult the package documentation.

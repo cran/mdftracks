@@ -4,10 +4,19 @@
 \alias{write.mdf}
 \title{Write an MTrackJ Data File (\code{.mdf})}
 \usage{
-write.mdf(x, file = "", cluster.column = NA, id.column = 1,
-  time.column = 2, scale.time = 1, pos.columns = c(3, 4, 5),
-  channel.column = NA, point.column = NA, default.channel = 1,
-  fileEncoding = "")
+write.mdf(
+  x,
+  file = "",
+  cluster.column = NA,
+  id.column = 1,
+  time.column = 2,
+  scale.time = 1,
+  pos.columns = c(3, 4, 5),
+  channel.column = NA,
+  point.column = NA,
+  default.channel = 1,
+  fileEncoding = ""
+)
 }
 \arguments{
 \item{x}{the data.frame with track information.}
@@ -43,13 +52,13 @@ specified.}
 
 \item{fileEncoding}{character string: if non-empty declares the encoding to
 be used on a file (not a connection) so the character data can be re-encoded
-as they are written. See \code{\link[base:file]{base::file()}}.}
+as they are written. See \code{\link[base:connections]{base::file()}}.}
 }
 \description{
 Writes a data.frame with tracking information as an MTrackJ Data File (\code{.mdf})
 file. Allows flexible column specification, and to avoid errors the column
 mapping used for writing is reported back to the user. Writing tracking data in
-'id time x y z' format, for example, from the MotilityLab package, doesn't
+'id time x y z' format, for example, from the celltrackR package, doesn't
 require additional arguments.
 }
 \examples{
@@ -70,5 +79,9 @@ write.mdf(mdftracks.example.data[, c('uid', 't', letters[24:26])])
 \seealso{
 \href{https://imagescience.org/meijering/software/mtrackj/format/}{MTrackJ Data Format}
 
-Other mdftracks functions: \code{\link{read.mdf}}
+\href{https://github.com/ingewortel/celltrackR}{celltrackR}
+
+Other mdftracks functions: 
+\code{\link{read.mdf}()}
 }
+\concept{mdftracks functions}

@@ -7,7 +7,6 @@
 #' @docType package
 #' @name mdftracks
 #' @seealso [MTrackJ Data Format](https://imagescience.org/meijering/software/mtrackj/format/)
-#' @import hellno
 NULL
 
 
@@ -68,7 +67,7 @@ read.mdf <- function(file, drop.Z = F, include.point.numbers = FALSE,
   if(!grepl(sprintf(pkg.env$mtrackj.header, '[0-9]+(.[0-9]+)*'), mdf.lines)) {
     stop("does not appear to be an MTrackJ Data File")
   }
-  message(mdf.lines)
+  # message(mdf.lines) # Print mdf version info from file
   mdf.lines <- c(mdf.lines, readLines(file))
 
   cluster.bounds <- getClusterBounds(mdf.lines)
@@ -111,7 +110,7 @@ read.mdf <- function(file, drop.Z = F, include.point.numbers = FALSE,
 #' Writes a data.frame with tracking information as an MTrackJ Data File (`.mdf`)
 #' file. Allows flexible column specification, and to avoid errors the column
 #' mapping used for writing is reported back to the user. Writing tracking data in
-#' 'id time x y z' format, for example, from the MotilityLab package, doesn't
+#' 'id time x y z' format, for example, from the celltrackR package, doesn't
 #' require additional arguments.
 #'
 #' @family mdftracks functions
@@ -144,6 +143,7 @@ read.mdf <- function(file, drop.Z = F, include.point.numbers = FALSE,
 #' as they are written. See [base::file()].
 #'
 #' @seealso [MTrackJ Data Format](https://imagescience.org/meijering/software/mtrackj/format/)
+#' @seealso [celltrackR](https://github.com/ingewortel/celltrackR)
 #'
 #' @examples
 #' \dontrun{
@@ -227,7 +227,7 @@ write.mdf <- function(x, file = "", cluster.column = NA, id.column = 1,
     for(track in names(track.l)) {
       writeLines(sprintf("Track %d", as.numeric(track)), file, sep = '\n')
       track.data <- track.l[[track]]
-      track.data <- track.data[order(track.data[cn['t']]), ]
+      track.data <- track.data[sort.list(track.data[[cn['t']]]), ]
       if(generate.points) {
         track.data[cn['p']] <- 1:nrow(track.data)
       }
@@ -293,7 +293,7 @@ getClusterTracks <- function(cluster.lines) {
   }))
   # Bind list together to get the DF, then convert to data matrix (make numeric),
   # then back to DF
-  as.data.frame(data.matrix(do.call(rbind, track.df.l)))
+  as.data.frame(data.matrix(do.call(rbind, track.df.l)), stringsAsFactors = F)
 }
 
 
