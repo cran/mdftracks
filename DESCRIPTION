@@ -1,7 +1,7 @@
 Package: mdftracks
 Type: Package
 Title: Read and Write 'MTrackJ Data Files'
-Version: 0.2.1
+Version: 0.2.2
 Authors@R: person("Gerhard", "Burger", 
                   email = "burger.ga@gmail.com", 
                   role = c("aut", "cre"), 
@@ -18,13 +18,14 @@ LazyData: TRUE
 Depends: R (>= 2.10)
 URL: https://github.com/burgerga/mdftracks
 BugReports: https://github.com/burgerga/mdftracks/issues
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
+Config/testthat/edition: 3
 Encoding: UTF-8
 Suggests: testthat, tools, tibble, spelling
 Language: en-US
 NeedsCompilation: no
-Packaged: 2021-01-12 14:11:07 UTC; burge
+Packaged: 2023-12-24 12:42:43 UTC; burge
 Author: Gerhard Burger [aut, cre] (<https://orcid.org/0000-0003-1062-5576>)
 Maintainer: Gerhard Burger <burger.ga@gmail.com>
 Repository: CRAN
-Date/Publication: 2021-01-13 11:40:05 UTC
+Date/Publication: 2024-01-08 10:00:06 UTC
